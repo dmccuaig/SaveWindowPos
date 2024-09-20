@@ -3,16 +3,29 @@ using System.Text.Json;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace SaveWindowPos.View;
+namespace SaveWindowPos;
 
+/// <summary>
+/// Extension methods for saving and restoring the position of a WPF Window using JSON strings.
+/// </summary>
 public static class WindowExtensions
 {
+  /// <summary>
+  /// Gets the window position as a JSON string.
+  /// </summary>
+  /// <param name="w">The Window</param>
+  /// <returns>The window position as a JSON string.</returns>
     public static string GetWindowPositionString(this Window w)
     {
         var wp = GetWinPos(w);
         return JsonSerializer.Serialize(wp, new JsonSerializerOptions { IncludeFields = true });
     }
 
+    /// <summary>
+    /// Restores the window position from a JSON string.
+    /// </summary>
+    /// <param name="w">The Window</param>
+    /// <param name="wpStr">JSON string</param>
     public static void RestoreWindowPosition(this Window w, string wpStr)
     {
         var wpCurrent = GetWinPos(w);
@@ -38,6 +51,11 @@ public static class WindowExtensions
         }
     }
 
+    /// <summary>
+    /// Deserializes a JSON string into a WinPos struct.
+    /// </summary>
+    /// <param name="wpStr">JSON string</param>
+    /// <returns>A WinPos struct.</returns>
     private static WinPos GetWinPosString(string wpStr)
     {
         if (string.IsNullOrWhiteSpace(wpStr))
@@ -55,7 +73,11 @@ public static class WindowExtensions
         }
     }
 
-
+    /// <summary>
+    /// Gets the window position as a WinPos struct.
+    /// </summary>
+    /// <param name="w">The Window</param>
+    /// <returns>A WinPos struct.</returns>
     private static WinPos GetWinPos(Window w)
     {
         // Persist window placement details to application settings
@@ -64,6 +86,11 @@ public static class WindowExtensions
         return wp;
     }
 
+    /// <summary>
+    /// Ensure a window is visible on the screen.
+    /// If it is partially hidden, snap it on screen.
+    /// </summary>
+    /// <param name="w">The Window</param>
     public static void EnsureIsVisible(this Window w)
     {
         double winLeft = w.Left;

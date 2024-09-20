@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace SaveWindowPos
+namespace SaveWindowPosDemo
 {
 	public partial class App : Application { }
 }

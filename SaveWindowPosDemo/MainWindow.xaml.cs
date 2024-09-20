@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using SaveWindowPos.Properties;
+using SaveWindowPos;
+using SaveWindowPosDemo.Properties;
 
-namespace SaveWindowPos.View;
+namespace SaveWindowPosDemo;
 
 public partial class MainWindow : Window
 {
@@ -20,7 +21,7 @@ public partial class MainWindow : Window
 
     protected override void OnClosing(CancelEventArgs e)
     {
-	    Settings.Default.WindowPlacement = this.GetWindowPositionString();
-	    Settings.Default.Save();
+        Settings.Default.WindowPlacement = this.GetWindowPositionString();
+        Settings.Default.Save();
     }
 }
